@@ -9,5 +9,5 @@ v1: Discover Coffee shops, art galleries and beaches in St Ives Cornwall
 
 ### How To Run
 
-The app is hosted on github and can be found here --> [tba](http://github.com/jodiealaine)
+The app is hosted on github and can be found here --> [map app](https://jodiealaine.github.io/neighbourhood-map/)
 
