@@ -1,0 +1,25 @@
+.map {
+	padding: 0;
+}
+#map-canvas {
+	width: 100%;
+	height: 800px;
+}
+
+.section {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+h3 {
+	color: #777;
+}
+
+h5 {
+	color: #777;
+	text-transform: uppercase;
+}
+
+.toggled-on {
+	background-color: #7dcdcd;
+}
