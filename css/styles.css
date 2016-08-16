@@ -23,3 +23,11 @@ h5 {
 .toggled-on {
 	background-color: #7dcdcd;
 }
+
+li {
+	list-style: none;
+}
+
+.side-bar {
+	height: 800px;
+}

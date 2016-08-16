@@ -9,25 +9,31 @@
   </head>
   <body>
     <div class="container-fluid">
-      <div class="row text-center">
-        <div class="col-xs-12 section">
-          <h3>It's Sunny in St Ives</h3>
-        <div class="col-xs-12 section">
-          <h5>SHOW ME THE...</h5>
-          <input id="beach-listings" class="btn btn-warning" type="button" value="Beaches">
-          <input id="art-listings" class="btn btn-warning" type="button" value="Art">
-          <input id="coffee-listings" class="btn btn-warning" type="button" value="Coffee">
-          <input id="all-listings" class="btn btn-warning toggled-on" type="button" value="All">
-        </div>     
-      </div>
       <div class="row">
-        <div class="col-md-12 map">
+        <div class="col-md-4 text-center side-bar">
+          <div class="">
+            <h3>It's Sunny in St Ives</h3>
+            <hr>
+            <h5>SHOW ME THE...</h5>
+            <input id="beach-listings" class="btn btn-warning" type="button" value="Beaches" data-bind="click: filterListings.bind($data,'beach')">
+            <input id="art-listings" class="btn btn-warning" type="button" value="Art" data-bind="click: filterListings.bind($data,'art')">
+            <input id="coffee-listings" class="btn btn-warning" type="button" value="Coffee" data-bind="click: filterListings.bind($data,'coffee')">
+            <input id="all-listings" class="btn btn-warning toggled-on" type="button" value="All" data-bind="click: resetListings.bind($data,'all')">
+            <hr>
+          </div>
+          <div class="list-view"></div>
+          <ul data-bind="foreach: filteredListings">
+            <li data-bind="text: title"></li>
+          </ul>
+          <hr>
+        </div>
+        <div class="col-md-8 map">
           <div id="map-canvas"></div>    
         </div>
       </div>  
     </div>
-    <script async src="js/knockout.js"></script>
-    <script async src="js/main.js"></script>
+    <script src="js/knockout.js"></script>
+    <script src="js/main.js"></script>
     <script async defer 
       src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry&key=AIzaSyCnffK4nlfk1QT59oCM4tatmDLuO1mqhrw&v=3&callback=initMap">
     </script>
