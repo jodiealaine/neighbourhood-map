@@ -209,17 +209,16 @@ function initMap() {
       // Add marker to our array of markers.
       markers.push(marker);
 
+      var previousMarker = null;
+      
       // Create an onclick event to open the large infowindow at each marker.
       marker.addListener('click', function() {
         populateInfoWindow(this, largeInfowindow);
-      });
-      // Two event listeners - one for mouseover, one for mouseout,
-      // to change the colors back and forth.
-      marker.addListener('mouseover', function() {
+        if (previousMarker != null) {
+          previousMarker.setIcon(defaultIcon);
+        }
         this.setIcon(highlightedIcon);
-      });
-      marker.addListener('mouseout', function() {
-        this.setIcon(defaultIcon);
+        previousMarker = this;
       });
     }
 
@@ -260,6 +259,7 @@ function initMap() {
       infowindow.marker = marker;
       // Make sure the marker property is cleared if the infowindow is closed.
       infowindow.addListener('closeclick', function() {
+        marker.setIcon(defaultIcon);
         infowindow.marker = null;
       });
       infowindow.setContent('<div>' + marker.title + '</div>');
