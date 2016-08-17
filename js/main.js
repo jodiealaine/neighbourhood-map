@@ -102,6 +102,28 @@ function AppViewModel() {
     self.getMarkerId(title);
     google.maps.event.trigger(markers[id], 'click');
   }
+
+  // Current Weather Forecast for St Ives
+  self.weather = ko.observable('');                                       // Declare weather as ko observable
+  $.ajax({
+    beforeSend: function(xhr) {                   // Before requesting data
+      if (xhr.overrideMimeType) {                 // If supported
+        xhr.overrideMimeType("application/json"); // set MIME to prevent errors
+      }
+    }
+  });
+
+  // FUNCTION THAT COLLECTS DATA FROM THE JSON FILE
+  function loadWeather() {                    // Declare function
+    $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat=50.209246&lon=-5.491105&appid=11a3954a0eb1390d4cbb488c38fecdf6')              // Try to collect JSON data
+    .done( function(data){                      // If successful
+      self.weather(data.weather[0].description.toUpperCase());                             // Store it in a variable
+    }).fail( function() {                       // If a problem: show message
+      $('#event').html('Sorry! We could not load the timetable at the moment');
+    });
+  }
+
+  loadWeather();                              // Call the function
 }
 
 ko.applyBindings(AppViewModel);
@@ -179,8 +201,6 @@ function initMap() {
       ]
     }
   ];
-
-  
 
   var largeInfowindow = new google.maps.InfoWindow();
 
@@ -262,7 +282,7 @@ function initMap() {
         marker.setIcon(defaultIcon);
         infowindow.marker = null;
       });
-      infowindow.setContent('<div>' + marker.title + '</div>');
+      infowindow.setContent('<div>' + marker.title + '</div>' + '<div> Rating: </div>');
       infowindow.open(map, marker);
     }
   }
