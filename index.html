@@ -7,6 +7,7 @@
     <title>st-ives-map-app</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="css/styles.css" rel="stylesheet">
+
   </head>
   <body>
     <div class="container-fluid">
@@ -38,7 +39,7 @@
     <script src="js/knockout.js"></script>
     <script src="js/main.js"></script>
     <script async defer 
-      src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry&key=AIzaSyCnffK4nlfk1QT59oCM4tatmDLuO1mqhrw&v=3&callback=initMap">
+      src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry&key=AIzaSyCnffK4nlfk1QT59oCM4tatmDLuO1mqhrw&v=3&callback=initMap" onerror="googleError()">
     </script>
   </body>
 </html>

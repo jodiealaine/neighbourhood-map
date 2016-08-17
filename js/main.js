@@ -118,11 +118,12 @@ function AppViewModel() {
 
   // Function that gets the current weather from api JSON
   function loadWeather() {                    // Declare function
-    $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat=50.209246&lon=-5.491105&appid=11a3954a0eb1390d4cbb488c38fecdf6')              // Try to collect JSON data
-    .done( function(data){                      // If successful
-      self.weather(data.weather[0].description.toUpperCase());                             // Store it in a variable
-    }).fail( function() {                       // If a problem: show message
-      $('#event').html('Sorry! We could not load the timetable at the moment');
+    $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat=50.20&lon=-5.491105&appid=11a3954a0eb1390d4cbb488c38fecdf6')              // Try to collect JSON data
+      .done( function(data){                      // If successful
+        self.weather(data.weather[0].description.toUpperCase());                             // Store it in a variable
+    })
+    .fail(function() {                       // If a problem: show message
+      alert('Sorry! We could not load the timetable at the moment');
     });
   }
 
@@ -166,6 +167,10 @@ function AppViewModel() {
 }
 
 ko.applyBindings(AppViewModel);
+
+googleError = function() {
+  alert('Unable to load map');
+};
 
 function initMap() {
   // Create custom styles for the map
