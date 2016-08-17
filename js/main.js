@@ -3,6 +3,8 @@ var map;
 // Create a new blank array for all the listing markers
 var markers = [];
 
+var imageUrl = 'https://farm9.staticflickr.com/8105/28752586140_b29607b0b2.jpg';
+
 function AppViewModel() {
   var self = this;
   self.listings = [
@@ -113,7 +115,7 @@ function AppViewModel() {
     }
   });
 
-  // FUNCTION THAT COLLECTS DATA FROM THE JSON FILE
+  // Function that gets the current weather from api JSON
   function loadWeather() {                    // Declare function
     $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat=50.209246&lon=-5.491105&appid=11a3954a0eb1390d4cbb488c38fecdf6')              // Try to collect JSON data
     .done( function(data){                      // If successful
@@ -123,7 +125,44 @@ function AppViewModel() {
     });
   }
 
-  loadWeather();                              // Call the function
+  loadWeather();                              // call the weather function
+
+  // Function that collects 
+  // Get Flickr image that is within 0.01 with the marker location.
+
+  self.getImage = function(marker) {
+    if(marker !== null) {
+      /** Create search URL using marker position for lat/lng geolocation match of photos
+        * within 1 km of position. Returns 1 photo that match criteria.
+        */
+      var searchUrl = 'https://api.flickr.com/services/rest/?method=flickr.photos.search' +
+        '&api_key=588c69c46097a668202169beb9689c36&lat=' + marker.position.lat() +
+        '&lon=' + marker.position.lng() + '&radius=0.01&radius_units=km&per_page=1&page=1' +
+        '&format=json&nojsoncallback=1';
+
+      /** Call to get flickr photo data in JSON format. 
+        */
+      $.getJSON(searchUrl)
+        .done(function(data) {
+          parseImageResult(data);
+        })
+        .fail(function(jqxhr, textStatus, error) {
+          alert("Unable to get photos from Flickr at this time.");
+        });
+    } else {
+      // If no marker chosen when trying to retrieve photos, alert user.
+      alert("Choose a location before trying to view photos.");
+    }
+  };
+
+   /** Parse flickr JSON to form a url for the jpg image
+    */
+  function parseImageResult(data) {
+    ko.utils.arrayForEach(data.photos.photo, function(photo) {
+      imageUrl = 'https://farm' + photo.farm + '.staticflickr.com/'
+        + photo.server + '/' + photo.id + '_' + photo.secret + '.jpg'; 
+    });
+  }
 }
 
 ko.applyBindings(AppViewModel);
@@ -277,12 +316,14 @@ function initMap() {
       // Clear the infowindow content to give the streetview time to load.
       infowindow.setContent('');
       infowindow.marker = marker;
+      self.getImage(marker);
+
       // Make sure the marker property is cleared if the infowindow is closed.
       infowindow.addListener('closeclick', function() {
         marker.setIcon(defaultIcon);
         infowindow.marker = null;
       });
-      infowindow.setContent('<div>' + marker.title + '</div>' + '<div> Rating: </div>');
+      infowindow.setContent('<div>' + marker.title + '</div>' + "<img width='50px' height='50px' src='" + imageUrl + "'/>");
       infowindow.open(map, marker);
     }
   }
