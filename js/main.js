@@ -44,15 +44,11 @@ function AppViewModel() {
     ko.utils.arrayForEach(self.listings, function(listing) {
         self.filteredListings.push(listing);
     });
-
     self.resetMarkers();
   };
 
   self.resetMarkers = function() {
     ko.utils.arrayForEach(self.markers, function(marker) {
-      if (marker.getVisible() === true) {
-        change = true;
-      }
       marker.setVisible(true);
     });
   };
@@ -61,33 +57,16 @@ function AppViewModel() {
     // Filter the markers
     ko.utils.arrayForEach(self.markers, function(marker) {
         if (type === marker.type) {
-            if (marker.getVisible() === true) {
-                change = true;
-            }
-            marker.setVisible(true);
+          marker.setVisible(true);
         } else {
-            if (marker.getVisible() === false) {
-                change = true;
-            }
-            marker.setVisible(false);
+          marker.setVisible(false);
         }
     });
   };
   
   // This function will update the filter applied to the listView and Markers
-  self.filterListings = function(type) {
-    switch(type){
-      case 'beach':
-        self.filterListView(type);
-        break;
-      case 'art':
-        self.filterListView(type);
-        break; 
-      case 'coffee':
-        self.filterListView(type);
-        break;
-    }    
-
+  self.filterListings = function(type) {   
+    self.filterListView(type);
     self.filterMarkers(type);
   };
 
@@ -121,10 +100,10 @@ function AppViewModel() {
     $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat=50.20&lon=-5.491105&appid=11a3954a0eb1390d4cbb488c38fecdf6')              // Try to collect JSON data
       .done( function(data){                      // If successful
         self.weather(data.weather[0].description.toUpperCase());                             // Store it in a variable
-    })
-    .fail(function() {                       // If a problem: show message
-      alert('Sorry! We could not load the timetable at the moment');
-    });
+      })
+      .fail(function() {                       // If a problem: show message
+        alert('Sorry! We could not load the weather.');
+      });
   }
 
   loadWeather();                              // call the weather function
