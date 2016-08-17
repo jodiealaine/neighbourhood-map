@@ -26,6 +26,13 @@ h5 {
 
 li {
 	list-style: none;
+	cursor: pointer; 
+	cursor: hand; 
+}
+
+li:hover {
+	background-color: #7dcdcd;
+	color: #fff;
 }
 
 .side-bar {

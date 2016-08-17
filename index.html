@@ -18,12 +18,12 @@
             <input id="beach-listings" class="btn btn-warning" type="button" value="Beaches" data-bind="click: filterListings.bind($data,'beach')">
             <input id="art-listings" class="btn btn-warning" type="button" value="Art" data-bind="click: filterListings.bind($data,'art')">
             <input id="coffee-listings" class="btn btn-warning" type="button" value="Coffee" data-bind="click: filterListings.bind($data,'coffee')">
-            <input id="all-listings" class="btn btn-warning toggled-on" type="button" value="All" data-bind="click: resetListings.bind($data,'all')">
+            <input id="all-listings" class="btn btn-warning toggled-on" type="button" value="Reset" data-bind="click: resetListings.bind($data,'all')">
             <hr>
           </div>
           <div class="list-view"></div>
-          <ul data-bind="foreach: filteredListings">
-            <li data-bind="text: title"></li>
+          <ul class="list-group" data-bind="foreach: filteredListings">
+            <li class="list-group-item" data-bind="text: title, click: openInfoWindow.bind($data, title)"></li>
           </ul>
           <hr>
         </div>

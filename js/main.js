@@ -88,6 +88,20 @@ function AppViewModel() {
 
     self.filterMarkers(type);
   };
+
+  self.getMarkerId = function(title) {
+    ko.utils.arrayForEach(self.markers, function(marker) {
+      if (marker.title === title) {
+        id = marker.id;
+      }
+    });
+    return id;
+  }
+  // The function to trigger the marker click, 'id' is the reference index to the 'markers' array.
+  self.openInfoWindow = function(title) {
+    self.getMarkerId(title);
+    google.maps.event.trigger(markers[id], 'click');
+  }
 }
 
 ko.applyBindings(AppViewModel);
