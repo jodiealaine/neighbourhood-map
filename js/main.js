@@ -37,7 +37,7 @@ function AppViewModel() {
         self.filteredListings.push(listing);
       } 
     });
-  }
+  };
 
   self.resetListings = function() {
     self.filteredListings([]);
@@ -46,7 +46,7 @@ function AppViewModel() {
     });
 
     self.resetMarkers();
-  }
+  };
 
   self.resetMarkers = function() {
     ko.utils.arrayForEach(self.markers, function(marker) {
@@ -55,7 +55,7 @@ function AppViewModel() {
       }
       marker.setVisible(true);
     });
-  }
+  };
 
   self.filterMarkers = function(type) {
     // Filter the markers
@@ -72,7 +72,7 @@ function AppViewModel() {
             marker.setVisible(false);
         }
     });
-  }
+  };
   
   // This function will update the filter applied to the listView and Markers
   self.filterListings = function(type) {
@@ -98,12 +98,13 @@ function AppViewModel() {
       }
     });
     return id;
-  }
+  };
+  
   // The function to trigger the marker click, 'id' is the reference index to the 'markers' array.
   self.openInfoWindow = function(title) {
     self.getMarkerId(title);
     google.maps.event.trigger(markers[id], 'click');
-  }
+  };
 
   // Current Weather Forecast for St Ives
   self.weather = ko.observable('');                                       // Declare weather as ko observable
@@ -159,8 +160,7 @@ function AppViewModel() {
     */
   function parseImageResult(data) {
     ko.utils.arrayForEach(data.photos.photo, function(photo) {
-      imageUrl = 'https://farm' + photo.farm + '.staticflickr.com/'
-        + photo.server + '/' + photo.id + '_' + photo.secret + '.jpg'; 
+      imageUrl = 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '.jpg'; 
     });
   }
 }
@@ -273,7 +273,7 @@ function initMap() {
       // Create an onclick event to open the large infowindow at each marker.
       marker.addListener('click', function() {
         populateInfoWindow(this, largeInfowindow);
-        if (previousMarker != null) {
+        if (previousMarker !== null) {
           previousMarker.setIcon(defaultIcon);
         }
         this.setIcon(highlightedIcon);
