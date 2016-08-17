@@ -12,6 +12,8 @@ v1: Discover Coffee shops, art galleries and beaches in St Ives Cornwall
 
 The app is hosted on github and can be found here --> [map app](https://jodiealaine.github.io/neighbourhood-map/)
 
+If you would like to run this locally then please download the files and open index.html
+
 ### APIs
 
 - Flikr API used for the images displayed relative to the marker location
