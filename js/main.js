@@ -97,7 +97,7 @@ function AppViewModel() {
 
   // Function that gets the current weather from api JSON
   function loadWeather() {                    // Declare function
-    $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat=50.20&lon=-5.491105&appid=11a3954a0eb1390d4cbb488c38fecdf6')              // Try to collect JSON data
+    $.getJSON('https://api.openweathermap.org/data/2.5/weather?lat=50.20&lon=-5.491105&appid=11a3954a0eb1390d4cbb488c38fecdf6')              // Try to collect JSON data
       .done( function(data){                      // If successful
         self.weather(data.weather[0].description.toUpperCase());                             // Store it in a variable
       })
@@ -282,7 +282,7 @@ function initMap() {
   // of 0, 0 and be anchored at 10, 34).
   function makeMarkerIcon(markerColor) {
     var markerImage = new google.maps.MarkerImage(
-      'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
+      'https://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
       '|40|_|%E2%80%A2',
       new google.maps.Size(21, 34),
       new google.maps.Point(0, 0),
